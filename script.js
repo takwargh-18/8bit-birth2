@@ -11,11 +11,11 @@ window.addEventListener("resize", () => {
 
 let step = 0;
 let showText = false;
-let message = "สุขสันต์วันเกิด บัง พลอย ซู่ลิ่ง 🎉";
-let textColor = "#ffc0cb"; // pink pastel
+const message = "สุขสันต์วันเกิด บัง พลอย ซู่ลิ่ง 🎉";
+const textColor = "#ffc0cb"; // pink pastel
 
 // 💧 Rain
-let raindrops = Array.from({ length: 150 }, () => ({
+const raindrops = Array.from({ length: 150 }, () => ({
   x: Math.random() * W,
   y: Math.random() * H,
   len: Math.random() * 20 + 10,
@@ -28,7 +28,7 @@ let fireworks = [];
 function triggerFireworks() {
   for (let i = 0; i < 10; i++) {
     const fx = Math.random() * W;
-    const fy = Math.random() * H * 0.5 + 50;
+    const fy = Math.random() * H * 0.5;
     for (let j = 0; j < 30; j++) {
       fireworks.push({
         x: fx,
@@ -43,16 +43,16 @@ function triggerFireworks() {
   }
 }
 
-// 🎂 เค้กวาดด้วย code
+// 🎂 เค้ก strawberry 1 ชั้น
 function drawCake() {
   const baseX = W / 2 - 60;
   const baseY = H - 150;
 
-  // ชั้นเค้ก
+  // เค้กชั้นล่าง
   ctx.fillStyle = "#ffb6c1"; // strawberry pink
   ctx.fillRect(baseX, baseY, 120, 40);
 
-  // วิปครีม
+  // วิปครีมด้านบน
   ctx.fillStyle = "#fff";
   for (let i = 0; i < 6; i++) {
     ctx.beginPath();
@@ -71,20 +71,28 @@ function drawCake() {
   ctx.fill();
 }
 
-// 🏙️ City BG
+// 🏙️ Background pixel-like
 function drawBackground() {
   ctx.fillStyle = "#0a0a23";
   ctx.fillRect(0, 0, W, H);
 
-  // อาคาร
+  // ตึก
   const count = 10;
   for (let i = 0; i < count; i++) {
     const bw = W / count * 0.9;
     const bh = 150 + Math.random() * 100;
     const x = i * (W / count) + 10;
     const y = H - bh;
-    ctx.fillStyle = "#1c2a45";
+    ctx.fillStyle = "#2a3c58";
     ctx.fillRect(x, y, bw, bh);
+
+    // หน้าต่าง
+    for (let j = 0; j < 4; j++) {
+      const wx = x + 10 + j * 20;
+      const wy = y + 20;
+      ctx.fillStyle = Math.random() > 0.5 ? "#4faaff" : "#1c2a45";
+      ctx.fillRect(wx, wy, 10, 10);
+    }
   }
 
   // พระจันทร์
@@ -137,6 +145,7 @@ function drawText() {
   ctx.fillText(message, W / 2, H / 2 + 160);
 }
 
+// ⏱️ Animation Main Loop
 function animate() {
   ctx.clearRect(0, 0, W, H);
   drawBackground();
@@ -167,3 +176,4 @@ function animate() {
 }
 
 animate();
+
